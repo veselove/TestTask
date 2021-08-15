@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearSnapHelper
 import com.veselove.myapplication210806.databinding.ActivityMainBinding
 import com.veselove.myapplication210806.viewmodels.MyViewModel
 
@@ -21,6 +22,11 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        setupRecyclerView()
+
+    }
+
+    private fun setupRecyclerView() {
         val recyclerView = binding.rvNumbers
         val numberOfColumns = 10
         recyclerView.layoutManager =
@@ -30,7 +36,7 @@ class MainActivity : AppCompatActivity() {
 
         model = ViewModelProvider(this).get(MyViewModel::class.java)
         model.observableIdImageList.observe(this, Observer { adapter.updateList(it) })
-
+        LinearSnapHelper().attachToRecyclerView(recyclerView)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
